@@ -22,14 +22,14 @@ from utils.transforms import get_affine_transform
 
 class LIPDataSet(data.Dataset):
     def __init__(self, root, dataset, crop_size=[473, 473], scale_factor=0.25,
-                 rotation_factor=30, ignore_label=255, transform=None):
+                 rotation_factor=30, ignore_label=255, transform=None, flip_prob=0.5):
         self.root = root
         self.aspect_ratio = crop_size[1] * 1.0 / crop_size[0]
         self.crop_size = np.asarray(crop_size)
         self.ignore_label = ignore_label
         self.scale_factor = scale_factor
         self.rotation_factor = rotation_factor
-        self.flip_prob = 0.5
+        self.flip_prob = flip_prob
         self.transform = transform
         self.dataset = dataset
 
