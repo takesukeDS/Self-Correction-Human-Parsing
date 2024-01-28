@@ -294,7 +294,7 @@ class ResNet(nn.Module):
 
         return nn.Sequential(*layers)
 
-    def forward(self, x):
+    def forward(self, x, return_feature=False):
         x = self.relu1(self.bn1(self.conv1(x)))
         x = self.relu2(self.bn2(self.conv2(x)))
         x = self.relu3(self.bn3(self.conv3(x)))
@@ -310,6 +310,8 @@ class ResNet(nn.Module):
         # Fusion Branch
         x = torch.cat([parsing_fea, edge_fea], dim=1)
         fusion_result = self.fushion(x)
+        if return_feature:
+            return [[parsing_result, fusion_result], [edge_result]], x
         return [[parsing_result, fusion_result], [edge_result]]
 
 
